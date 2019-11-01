@@ -1,0 +1,54 @@
+celert:
+	问题：
+		用户发起request，并且等待response返回，但是在视图中有一些耗时的操作，导致网站每隔一段时间需要同步一次数据，但是 http请求是需要触发的
+	
+	解决：
+		i：将耗时的操作放在celery中执行
+		ii：使用celery定时执行
+
+	任务task：
+		本质是一个python函数，将耗时的操作封装成一个函数
+	
+	队列queue：
+		将要执行的任务放队列里
+	
+	工人worker：
+		负责执行了对列中的任务
+	
+	代理broker：
+		负责调度，在部署环境中使用redis
+	
+	安装：
+		>>>pip install celery -i http://pipy.douban.com/simple
+		>>>pip install celery-with-redis -i http://pipy.douban.com/simple
+		>>>pip install django-celery -i http://pipy.douban.com/simple
+	
+	配置settings.py：
+		在INSTALLED_APPS中添加djcelery
+
+		import djcelery
+		djcelery.setup_loader() #初始化
+		BROKER_URL='redis://root@127.0.0.1:6379/0'  #使用redis
+		CELERY_IMPORTS=('myApp.task')    #项目名
+
+	潜移：
+		>>>python manage.py migrate
+
+	celery.py：
+		import os
+		from celery import Celery
+		from django.conf import settings
+
+		os.environ.setdefault('DJANGO_SETTINGS_MODULE',
+		'whthas_home.settings')
+
+		app = Celery('portal')
+		app.config_from_object('django.conf.settings')
+		app.autodiscover_tasks(lambda :settings.INSTALLED_APPS)
+
+		@aoo.task(bind=True)
+		def debug_task(self):
+		    print('Request: {0!r}'.format(self.request))
+
+	project/__init__.py：
+		from .celery import app as celery_app
