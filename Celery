@@ -1,40 +1,41 @@
+  
 celert:
-	é—®é¢˜ï¼š
-		ç”¨æˆ·å‘èµ·requestï¼Œå¹¶ä¸”ç­‰å¾…responseè¿”å›žï¼Œä½†æ˜¯åœ¨è§†å›¾ä¸­æœ‰ä¸€äº›è€—æ—¶çš„æ“ä½œï¼Œå¯¼è‡´ç½‘ç«™æ¯éš”ä¸€æ®µæ—¶é—´éœ€è¦åŒæ­¥ä¸€æ¬¡æ•°æ®ï¼Œä½†æ˜¯ httpè¯·æ±‚æ˜¯éœ€è¦è§¦å‘çš„
+	ÎÊÌâ£º
+		ÓÃ»§·¢Æðrequest£¬²¢ÇÒµÈ´ýresponse·µ»Ø£¬µ«ÊÇÔÚÊÓÍ¼ÖÐÓÐÒ»Ð©ºÄÊ±µÄ²Ù×÷£¬µ¼ÖÂÍøÕ¾Ã¿¸ôÒ»¶ÎÊ±¼äÐèÒªÍ¬²½Ò»´ÎÊý¾Ý£¬µ«ÊÇ httpÇëÇóÊÇÐèÒª´¥·¢µÄ
 	
-	è§£å†³ï¼š
-		iï¼šå°†è€—æ—¶çš„æ“ä½œæ”¾åœ¨celeryä¸­æ‰§è¡Œ
-		iiï¼šä½¿ç”¨celeryå®šæ—¶æ‰§è¡Œ
+	½â¾ö£º
+		i£º½«ºÄÊ±µÄ²Ù×÷·ÅÔÚceleryÖÐÖ´ÐÐ
+		ii£ºÊ¹ÓÃcelery¶¨Ê±Ö´ÐÐ
 
-	ä»»åŠ¡taskï¼š
-		æœ¬è´¨æ˜¯ä¸€ä¸ªpythonå‡½æ•°ï¼Œå°†è€—æ—¶çš„æ“ä½œå°è£…æˆä¸€ä¸ªå‡½æ•°
+	ÈÎÎñtask£º
+		±¾ÖÊÊÇÒ»¸öpythonº¯Êý£¬½«ºÄÊ±µÄ²Ù×÷·â×°³ÉÒ»¸öº¯Êý
 	
-	é˜Ÿåˆ—queueï¼š
-		å°†è¦æ‰§è¡Œçš„ä»»åŠ¡æ”¾é˜Ÿåˆ—é‡Œ
+	¶ÓÁÐqueue£º
+		½«ÒªÖ´ÐÐµÄÈÎÎñ·Å¶ÓÁÐÀï
 	
-	å·¥äººworkerï¼š
-		è´Ÿè´£æ‰§è¡Œäº†å¯¹åˆ—ä¸­çš„ä»»åŠ¡
+	¹¤ÈËworker£º
+		¸ºÔðÖ´ÐÐÁË¶ÔÁÐÖÐµÄÈÎÎñ
 	
-	ä»£ç†brokerï¼š
-		è´Ÿè´£è°ƒåº¦ï¼Œåœ¨éƒ¨ç½²çŽ¯å¢ƒä¸­ä½¿ç”¨redis
+	´úÀíbroker£º
+		¸ºÔðµ÷¶È£¬ÔÚ²¿Êð»·¾³ÖÐÊ¹ÓÃredis
 	
-	å®‰è£…ï¼š
+	°²×°£º
 		>>>pip install celery -i http://pipy.douban.com/simple
 		>>>pip install celery-with-redis -i http://pipy.douban.com/simple
 		>>>pip install django-celery -i http://pipy.douban.com/simple
 	
-	é…ç½®settings.pyï¼š
-		åœ¨INSTALLED_APPSä¸­æ·»åŠ djcelery
+	ÅäÖÃsettings.py£º
+		ÔÚINSTALLED_APPSÖÐÌí¼Ódjcelery
 
 		import djcelery
-		djcelery.setup_loader() #åˆå§‹åŒ–
-		BROKER_URL='redis://root@127.0.0.1:6379/0'  #ä½¿ç”¨redis
-		CELERY_IMPORTS=('myApp.task')    #é¡¹ç›®å
+		djcelery.setup_loader() #³õÊ¼»¯
+		BROKER_URL='redis://root@127.0.0.1:6379/0'  #Ê¹ÓÃredis
+		CELERY_IMPORTS=('myApp.task')    #ÏîÄ¿Ãû
 
-	æ½œç§»ï¼š
+	Ç±ÒÆ£º
 		>>>python manage.py migrate
 
-	celery.pyï¼š
+	celery.py£º
 		import os
 		from celery import Celery
 		from django.conf import settings
@@ -50,5 +51,5 @@ celert:
 		def debug_task(self):
 		    print('Request: {0!r}'.format(self.request))
 
-	project/__init__.pyï¼š
+	project/__init__.py£º
 		from .celery import app as celery_app

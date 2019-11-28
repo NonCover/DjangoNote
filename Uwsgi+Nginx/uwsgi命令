@@ -1,0 +1,2 @@
+Uwsgi启动:uwsgi --ini ./uwsgi.ini)(配置文件目录)
+Uwsgi重启+关闭:uwsgi --reload/--stop ./uwsgi.pid(进程文件目录)
