@@ -33,7 +33,7 @@ Version:Django1.1a1 + Python3.7
 1 使用教程
 
     1.1 创建项目:
-        >>>djangp-admin startproject project(Project Name)
+        >>>django-admin startproject project(Project Name)
 
         1.1.1 配置数据库:
             在project目录下的settings.py里，修改:DATABASES = {
